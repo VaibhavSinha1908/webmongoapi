@@ -10,11 +10,9 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  docker-compose-run:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: pennsignals/publish_docker-compose@v0.1.1
-      with:
-        docker-compose: ./docker-compose.yml
+    - uses:  isbang/compose-action@v1.4.1
