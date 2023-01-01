@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "zWunYnLBu6PRy3MUhtI3VggoRBSxhmRf4IbfrZGF+AQ=",
+  "Source": "WebMongoApi",
+  "BasePath": "_content/WebMongoApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
