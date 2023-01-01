@@ -19,7 +19,8 @@ RUN dotnet build "WebMongoApi.csproj" -c Release -o /app/build
 # run the unit tests
 FROM build AS test
 WORKDIR /app/WebMongoApi.Test
-RUN dotnet test --logger:trx
+ENTRYPOINT ["dotnet", "test", "--logger:trx"]
+
 
 FROM build AS publish
 RUN dotnet publish "WebMongoApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
