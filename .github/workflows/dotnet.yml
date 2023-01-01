@@ -45,5 +45,5 @@ jobs:
        application_name: webmongoapi
       # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
       # Version label for new Beanstalk version
-       version_label: v1
+       version_label: Webmongoapi-env
   
