@@ -1,0 +1,19 @@
+name: .NET Core Web API Deployment
+
+on: [push]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and Test
+      run: |
+        docker-compose build
+        docker-compose run web dotnet test
+    - name: Deploy to Elastic Beanstalk
+      uses: actions/setup-aws@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: eb deploy
