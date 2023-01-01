@@ -7,10 +7,10 @@ services:
     ports:
       - "27017:27017"
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8081:80"
     depends_on:
-      - mongo
-    links:
       - mongo
