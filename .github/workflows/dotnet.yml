@@ -1,0 +1,40 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and Test
+      run: |
+        docker-compose build
+        docker-compose run web dotnet test
+
+    - name: Beanstalk Deploy
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+      # AWS Access Key
+       aws_access_key:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+      # AWS Secret Key
+       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # AWS Region
+       region: ${{ secrets.AWS_DEFAULT_REGION }}
+      # Beanstalk application name
+       application_name: webmongoapi
+      # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
+       environment_name: Webmongoapi-env
+
+      # Version label for new Beanstalk version
+       version_label: Webmongoapi-env
+  
