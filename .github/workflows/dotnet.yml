@@ -16,13 +16,34 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    
     - name: Restore dependencies
       run: dotnet restore
+    
     - name: Build
       run: dotnet build --no-restore
+    
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Beanstalk Deploy
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+      # AWS Access Key
+       aws_access_key:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+      # AWS Secret Key
+       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # AWS Session Token when using temporary security credentials such as when assuming a role in AWS through STS
+      # AWS Region
+       region: ${{ secrets.AWS_DEFAULT_REGION }}
+      # Beanstalk application name
+       application_name: webmongoapi
+      # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
+      # Version label for new Beanstalk version
+       version_label: v1
+  
